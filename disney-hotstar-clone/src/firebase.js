@@ -5,6 +5,8 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { GoogleAuthProvider } from "firebase/auth";
 
+
+
 const firebaseConfig = {
     apiKey: "AIzaSyAYO1k1W6uTM5TDbsGfWpOBnzisWW6WQfc",
     authDomain: "disney-hotstar-clone-9d63a.firebaseapp.com",

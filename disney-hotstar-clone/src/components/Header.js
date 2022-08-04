@@ -1,18 +1,39 @@
 import styled from "styled-components";
 import React from "react";
-import { auth, provider } from "../firebase";
+import { provider } from "../firebase";
+import { getAuth, signInWithPopup} from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectUserName, 
+         selectUserPhoto, 
+         setUserLoginDetails, 
+} from "../features/users/userSlice";
 
 const Header = (props) => {
+    const auth = getAuth();
+    const dispatch = useDispatch();
+    const history = useNavigate();
+    const username = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
 
     const handleAuth = () => {
-        auth
-        .signInWithPopup(provider)
+        signInWithPopup(auth, provider)
         .then((result) => {
-            console.log(result);
+            setUser(result.user);
         })
         .catch(error => {
             alert(error.message);
         });
+    };
+
+    const setUser = (user) => {
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            })
+        );
     };
 
     return(
@@ -20,6 +41,9 @@ const Header = (props) => {
             <Logo>
                 <img src="/images/logo.svg" alt= "" />
             </Logo>
+            
+            {!username ? (<Login onClick={handleAuth}>Login</Login>): (
+            <>
             <NavMenu>
                 <a href="/home">
                     <img src="/images/home-icon.svg" alt="" />
@@ -46,7 +70,9 @@ const Header = (props) => {
                     <span>SERIES</span>
                 </a>
             </NavMenu>
-            <Login onClick={handleAuth}>Login</Login>
+            
+            </>
+)}     
         </Nav>
     )
 };
@@ -73,6 +99,7 @@ margin-top: 4px;
 max-height: 60px;
 font-size: 0;
 display: inline-block;
+cursor: pointer;
 
 img{
     display: block;
@@ -158,6 +185,10 @@ const Login = styled.a`
         background-color: rgb(249,249,249);
         color: rgb(1, 1, 9);
     }
+`;
+
+const UserImg = styled.div`
+height: 100%;
 `;
 
 export default Header;
