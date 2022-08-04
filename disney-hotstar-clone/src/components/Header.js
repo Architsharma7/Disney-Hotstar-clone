@@ -1,9 +1,23 @@
 import styled from "styled-components";
 import React from "react";
 import { auth, provider } from "../firebase";
+import { getAuth, signInWithPopup} from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectUserName, 
+         selectUserPhoto, 
+         setUserLoginDetails, 
+} from "../features/users/userSlice";
+
 
 const Header = (props) => {
-
+    
+    const auth = getAuth();
+    const dispatch = useDispatch();
+    const history = useNavigate();
+    const username = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
+    
     const handleAuth = () => {
         auth
         .signInWithPopup(provider)
