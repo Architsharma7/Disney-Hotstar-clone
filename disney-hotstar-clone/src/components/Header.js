@@ -11,7 +11,7 @@ import { selectUserName,
 } from "../features/users/userSlice";
 
 const Header = (props) => {
-        const auth = getAuth();
+    const auth = getAuth();
     const dispatch = useDispatch();
     const username = useSelector(selectUserName);
     const userPhoto = useSelector(selectUserPhoto);
@@ -26,12 +26,6 @@ const Header = (props) => {
       });
     }, [username]);
     
-
-    const auth = getAuth();
-    const dispatch = useDispatch();
-    const history = useNavigate();
-    const username = useSelector(selectUserName);
-    const userPhoto = useSelector(selectUserPhoto);
     
     const handleAuth = () => {
         if (!username){
