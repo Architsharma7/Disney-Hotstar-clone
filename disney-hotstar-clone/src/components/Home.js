@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import db from "../firebase";
 import { setMovies } from "../features/movie/movieSlicer";
 import { selectUserName } from "../features/users/userSlice";
+import { doc, collection, query, where, onSnapshot, QuerySnapshot } from "firebase/firestore";
+
 
 const Home = (props) => {
     const dispatch = useDispatch();
@@ -21,8 +23,9 @@ const Home = (props) => {
     let trendings = [];
 
     useEffect(() => {
-        db.collection("movies").onSnapshot((snapshot) => {
-            snapshot.docs.map((doc) => {
+        const q = query(collection(db, "movies"))
+        const unsub = onSnapshot(q, (QuerySnapshot) => {
+              QuerySnapshot.docs.map((doc) => {
                 switch(doc.data().type){
                     case "recommend" : 
                         recommends = [...recommends, {id: doc.id, ...doc.data()}];
