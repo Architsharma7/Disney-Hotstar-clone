@@ -11,7 +11,7 @@ const Detail = (props) => {
 
   useEffect(() => {
     db.collection('movies')
-      .doc(id)
+      .doc()
       .get()
       .then((doc) => {
         if (doc.exists()) {
