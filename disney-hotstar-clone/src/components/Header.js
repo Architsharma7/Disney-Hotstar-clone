@@ -18,6 +18,7 @@ const Header = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
       auth.onAuthStateChanged(async (user) => {
         if(user){
             setUser(user)

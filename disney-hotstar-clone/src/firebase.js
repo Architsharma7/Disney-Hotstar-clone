@@ -6,6 +6,7 @@ import { getStorage } from "firebase/storage";
 import { GoogleAuthProvider } from "firebase/auth";
 
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyAYO1k1W6uTM5TDbsGfWpOBnzisWW6WQfc",
     authDomain: "disney-hotstar-clone-9d63a.firebaseapp.com",
@@ -21,7 +22,7 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-const storage = getStorage(app);
+const storage = getFirestore(app);
 
 export { auth, provider, storage };
 export default db;
